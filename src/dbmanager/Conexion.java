@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 public class Conexion {
 
     Connection con = null;
-    String databaseName = "teoriabdd";
+    String databaseName = "mydb";
     String url = "jdbc:mysql://databaseloca.chipjryqc5hl.us-east-1.rds.amazonaws.com:3306/" + databaseName;
 
     String username = "masteruser";
