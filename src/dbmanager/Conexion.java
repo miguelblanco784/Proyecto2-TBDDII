@@ -9,14 +9,22 @@ import java.util.logging.Logger;
 public class Conexion {
 
     Connection con = null;
-    String databaseName = "mydb";
-    String url = "jdbc:mysql://databaseloca.chipjryqc5hl.us-east-1.rds.amazonaws.com:3306/" + databaseName;
+    String url = "jdbc:mysql://databaseloca.chipjryqc5hl.us-east-1.rds.amazonaws.com:3306/";
+    String driver;
+    String username;
+    String password;
+    String hostname;
+    String port;
+    String nombrebd;
 
-    String username = "masteruser";
-    String password = "admin12345";
-
-    public Conexion() {
-
+    public Conexion(String driver, String hostname, String port, String username, String password, String nombrebd) {
+        this.driver = driver; //origen: mysql
+        this.hostname = hostname;// origen: databaseloca.chipjryqc5hl.us-east-1.rds.amazonaws.com
+        this.port = port;//origen: 3306
+        this.username = username;//origen: masteruser
+        this.password = password;//origen: admin12345
+        this.nombrebd = nombrebd;//mydb
+        this.url= "jdbc:" + this.driver + "://" + this.hostname + ":" + this.port +"/"+ nombrebd;
     }
 
     public Connection getCon() {
@@ -24,12 +32,6 @@ public class Conexion {
             con = DriverManager.getConnection(url, username, password);
         } catch (SQLException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        if (con != null) {
-            System.out.println("Connection to database succesfull");
-        } else {
-            System.out.println("FATAL ERROR CONNECTION NOT SET!");
         }
 
         return con;
@@ -47,13 +49,31 @@ public class Conexion {
         this.con = con;
     }
 
-    public String getDatabaseName() {
-        return databaseName;
+    public String getDriver() {
+        return driver;
     }
 
-    public void setDatabaseName(String databaseName) {
-        this.databaseName = databaseName;
+    public void setDriver(String driver) {
+        this.driver = driver;
     }
+
+    public String getHostname() {
+        return hostname;
+    }
+
+    public void setHostname(String hostname) {
+        this.hostname = hostname;
+    }
+
+    public String getPort() {
+        return port;
+    }
+
+    public void setPort(String port) {
+        this.port = port;
+    }
+
+
 
     public String getUrl() {
         return url;
