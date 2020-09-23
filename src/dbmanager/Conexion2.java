@@ -6,6 +6,7 @@
 package dbmanager;
 
 import java.sql.*;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,19 +14,39 @@ import java.sql.*;
  */
 public class Conexion2 {
 
-    public static void main(String args[]) {
-        try {
-            String connectionUrl = "jdbc:sqlserver://database.chipjryqc5hl.us-east-1.rds.amazonaws.com:1433;"
-                    + "databaseName=mydb;user=admin;password=admin12345;";
-            Connection con = DriverManager.getConnection(connectionUrl);
-            System.out.println("Coneccion a la Base de Datos SQL Server SUCCESFULL!");
-        } catch (SQLException e) {
-            System.out.println("Error en le coneccion a la base de datos SQL Server " + e.getMessage());
-        }
+    Connection con = null;
+    String nombreInstancia;
+    String nombreDB;
+    String puerto;
+    String nombreUsuario;
+    String password;
+
+    public Conexion2(String nombreInstancia, String nombreDB, String puerto, String nombreUsuario, String password) {
+        this.nombreInstancia = nombreInstancia;
+        this.nombreDB = nombreDB;
+        this.puerto = puerto;
+        this.nombreUsuario = nombreUsuario;
+        this.password = password;
+
     }
 
-    void Conexion() {
+    public Connection getCon() {
+        try {
+            String connectionUrl = "jdbc:sqlserver://" + nombreInstancia + ":" + puerto + ";"
+                    + "databaseName=" + nombreDB + ";user=" + nombreUsuario + ";password=" + password + ";";
+            con = DriverManager.getConnection(connectionUrl);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "No se logro conexion" + e.getMessage());
+        }
+        return con;
+    }
 
+    void desconexion() {
+        try {
+            con.close();
+        } catch (SQLException e) {
+            System.out.println("No se puedo efectuar la desconexion!");
+        }
     }
 
 }

@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class Conexion {
 
@@ -24,13 +25,14 @@ public class Conexion {
         this.username = username;//origen: masteruser
         this.password = password;//origen: admin12345
         this.nombrebd = nombrebd;//mydb
-        this.url= "jdbc:" + this.driver + "://" + this.hostname + ":" + this.port +"/"+ nombrebd;
+        this.url = "jdbc:" + this.driver + "://" + this.hostname + ":" + this.port + "/" + nombrebd;
     }
 
     public Connection getCon() {
         try {
             con = DriverManager.getConnection(url, username, password);
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "No se logro conexion" + ex.getMessage());
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -72,8 +74,6 @@ public class Conexion {
     public void setPort(String port) {
         this.port = port;
     }
-
-
 
     public String getUrl() {
         return url;
